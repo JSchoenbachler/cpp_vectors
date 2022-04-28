@@ -1,6 +1,8 @@
 #include <iostream>
 #include "vector.h"
 #include <string>
+#include <vector>
+#include <math.h>
 
 /*
 Vector2 definitions.
@@ -228,4 +230,92 @@ Vector3 CrossProduct(Vector3& a, Vector3& b) {
     float cy = (a.z * b.x) - (a.x * b.z);
     float cz = (a.x * b.y) - (a.y * b.x);
     return Vector3(cx, cy, cz);
+}
+// Rotation-relative vector functions.
+vector<vector<float>> MatrixProduct(vector<vector<float>>& a, vector<vector<float>>& b) {
+    vector<vector<float>> res;
+    int aCols = a.size();
+    int aRows = a.at(0).size();
+    int bCols = b.size();
+    int bRows = b.at(0).size();
+    res.reserve(bCols);
+    for(int i = 0; i < bCols; i++) {
+        vector<float> tmpVec;
+        tmpVec.reserve(aRows);
+        for(int j = 0; j < aRows; j++) {
+            float tmpSum = 0;
+            for (int k = 0; k < bRows; k++) {
+                tmpSum += (a.at(k).at(j) * b.at(i).at(k));
+            }
+            tmpVec.push_back(tmpSum);
+        }
+        res.push_back(tmpVec);
+    }
+    return res;
+}
+Vector3 RotateAroundX(float theta, Vector3 v3) {
+    float cosTheta = cos(theta);
+    float sinTheta = sin(theta);
+    vector<vector<float>> RxMat{{1, 0, 0},
+                                {0, cosTheta, -sinTheta},
+                                {0, sinTheta, cosTheta}};
+    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
+    vector<vector<float>> prod = MatrixProduct(RxMat, vecToColumn);
+    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+}
+Vector3 RotateAroundY(float theta, Vector3 v3) {
+    float cosTheta = cos(theta);
+    float sinTheta = sin(theta);
+    vector<vector<float>> RyMat{{cosTheta, 0, -sinTheta},
+                                {0, 1, 0},
+                                {sinTheta, 0, cosTheta}};
+    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
+    vector<vector<float>> prod = MatrixProduct(RyMat, vecToColumn);
+    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+}
+Vector3 RotateAroundZ(float theta, Vector3 v3) {
+    float cosTheta = cos(theta);
+    float sinTheta = sin(theta);
+    vector<vector<float>> RzMat{{cosTheta, sinTheta, 0},
+                                {-sinTheta, cosTheta, 0},
+                                {0, 0, 1}};
+    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
+    vector<vector<float>> prod = MatrixProduct(RzMat, vecToColumn);
+    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+}
+Vector3 RelativeRightVector(float thetaY, float thetaZ) {
+    Vector3 relRight = Vector3(1, 0, 0);
+    relRight = RotateAroundY(thetaY, relRight);
+    relRight = RotateAroundZ(thetaZ, relRight);
+
+    return relRight;
+}
+Vector3 RelativeUpVector(float thetaX, float thetaZ) {
+    Vector3 relUp = Vector3(0, 1, 0);
+    relUp = RotateAroundX(thetaX, relUp);
+    relUp = RotateAroundZ(thetaZ, relUp);
+
+    return relUp;
+}
+Vector3 RelativeForwardVector(float thetaX, float thetaY) {
+    Vector3 relForward = Vector3(0, 0, 1);
+    relForward = RotateAroundX(thetaX, relForward);
+    relForward = RotateAroundY(thetaY, relForward);
+
+    return relForward;
+}
+Vector3 RelativeLeftVector(float thetaY, float thetaZ) {
+    Vector3 relLeft = RelativeRightVector(thetaY, thetaZ);
+    relLeft = -relLeft;
+    return relLeft;
+}
+Vector3 RelativeDownVector(float thetaX, float thetaZ) {
+    Vector3 relDown = RelativeUpVector(thetaX, thetaZ);
+    relDown = -relDown;
+    return relDown;
+}
+Vector3 RelativeBackVector(float thetaX, float thetaY) {
+    Vector3 relBack = RelativeForwardVector(thetaX, thetaY);
+    relBack = -relBack;
+    return relBack;
 }

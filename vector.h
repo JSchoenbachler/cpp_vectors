@@ -1,6 +1,9 @@
 #include <iostream>
 #include <math.h>
 #include <string>
+#include <vector>
+
+using namespace std;
 
 class Vector3;
 
@@ -13,7 +16,7 @@ class Vector2 {
         Vector2(float x, float y);
         Vector2(float xy);
         // Functions
-        std::string ToString();
+        string ToString();
         float Magnitude();
         Vector2 Normalize();
         Vector3 ToVector3();
@@ -32,8 +35,8 @@ class Vector2 {
         friend void operator/=(Vector2 &, Vector2 const &);
         friend bool operator==(Vector2 const &, Vector2 const &);
         friend bool operator!=(Vector2 const &, Vector2 const &);
-        friend std::ostream& operator<<(std::ostream&, Vector2&);
-        friend std::istream& operator>>(std::istream&, Vector2&);
+        friend ostream& operator<<(ostream&, Vector2&);
+        friend istream& operator>>(istream&, Vector2&);
         // Static instances
         static Vector2 zero;
         static Vector2 one;
@@ -55,7 +58,7 @@ class Vector3 {
         Vector3(Vector2& v2);
         Vector3(Vector2& v2, float z);
         // Functions
-        std::string ToString();
+        string ToString();
         float Magnitude();
         Vector3 Normalize();
         Vector2 ToVector2();
@@ -73,8 +76,8 @@ class Vector3 {
         friend void operator/=(Vector3 &, Vector3 const &);
         friend bool operator==(Vector3 const &, Vector3 const &);
         friend bool operator!=(Vector3 const &, Vector3 const &);
-        friend std::ostream& operator<<(std::ostream&, Vector3&);
-        friend std::istream& operator>>(std::istream&, Vector3&);
+        friend ostream& operator<<(ostream&, Vector3&);
+        friend istream& operator>>(istream&, Vector3&);
         // Static instances
         static Vector3 zero;
         static Vector3 one;
@@ -92,3 +95,14 @@ float DotProductAngle(Vector2&, Vector2&);
 float DotProductScalar(Vector3&, Vector3&);
 float DotProductAngle(Vector3&, Vector3&);
 Vector3 CrossProduct(Vector3&, Vector3&);
+// Rotation-relative Vectors.
+vector<vector<float>> MatrixProduct(vector<vector<float>>&, vector<vector<float>>&);
+Vector3 RotateAroundX(float, Vector3);
+Vector3 RotateAroundY(float, Vector3);
+Vector3 RotateAroundZ(float, Vector3);
+Vector3 RelativeRightVector(float, float);
+Vector3 RelativeUpVector(float, float);
+Vector3 RelativeForwardVector(float, float);
+Vector3 RelativeLeftVector(float, float);
+Vector3 RelativeDownVector(float, float);
+Vector3 RelativeBackVector(float, float);

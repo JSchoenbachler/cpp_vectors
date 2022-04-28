@@ -1,4 +1,5 @@
 #include <iostream>
+#include <math.h>
 #include "vector.h"
 
 using namespace std;
@@ -42,6 +43,14 @@ int main() {
     cout << "b: " << b << endl;
     Vector3 c = CrossProduct(a, b);
     cout << "CrossProduct(a, b): " << c << endl;
+
+    double pi = 2*acos(0.0);
+    Vector3 z = Vector3(1, 0, 0);
+    cout << "z: " << z << endl;
+    z = RotateAroundZ(pi / 2, z);
+    cout << "z = RotateAroundZ(pi / 2, z);" <<endl;
+    cout << "z: " << z << endl;
+
 
     return 0;
 }
