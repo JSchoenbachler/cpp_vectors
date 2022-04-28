@@ -37,9 +37,6 @@ Vector2 Vector2::Normalize() {
 Vector3 Vector2::ToVector3(float z) {
     return(Vector3(x, y, z));
 }
-Vector3 Vector2::ToVector3() {
-    return(ToVector3(0));
-}
 
 //Vector2 operator overloads.
 Vector2 Vector2::operator+(Vector2 const &rhs) {
@@ -256,38 +253,38 @@ Vector3 RotateAroundZ(float theta, Vector3 v3) {
     float z = v3.z;
     return Vector3(x, y, z);
 }
-Vector3 RelativeRightVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeRightVector(double pitch, double yaw, double roll) {
     Vector3 relRight = Vector3(1, 0, 0);
     relRight = RotateAroundY(yaw, relRight);
     relRight = RotateAroundX(pitch, relRight);
     relRight = RotateAroundZ(roll, relRight);
     return relRight;
 }
-Vector3 RelativeUpVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeUpVector(double pitch, double yaw, double roll) {
     Vector3 relUp = Vector3(0, 1, 0);
     relUp = RotateAroundY(yaw, relUp);
     relUp = RotateAroundX(pitch, relUp);
     relUp = RotateAroundZ(roll, relUp);
     return relUp;
 }
-Vector3 RelativeForwardVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeForwardVector(double pitch, double yaw, double roll) {
     Vector3 relFwd = Vector3(0, 0, 1);
     relFwd = RotateAroundY(yaw, relFwd);
     relFwd = RotateAroundX(pitch, relFwd);
     relFwd = RotateAroundZ(roll, relFwd);
     return relFwd;
 }
-Vector3 RelativeLeftVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeLeftVector(double pitch, double yaw, double roll) {
     Vector3 relLeft = RelativeRightVector(pitch, yaw, roll);
     relLeft = -relLeft;
     return relLeft;
 }
-Vector3 RelativeDownVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeDownVector(double pitch, double yaw, double roll) {
     Vector3 relDown = RelativeUpVector(pitch, yaw, roll);
     relDown = -relDown;
     return relDown;
 }
-Vector3 RelativeBackVector(double pitch, double yaw = 0, double roll = 0) {
+Vector3 RelativeBackVector(double pitch, double yaw, double roll) {
     Vector3 relBack = RelativeForwardVector(pitch, yaw, roll);
     relBack = -relBack;
     return relBack;

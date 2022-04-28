@@ -29,6 +29,10 @@ int main() {
     cout << "Vector2::left " << (Vector2::left) << endl;
     cout << "Vector2::zero " << (Vector2::zero) << endl;
     cout << "Vector2::up " << (Vector2::up) << endl;
+    Vector3 v2Ex3v3 = v2Ex3.ToVector3();
+    cout << "v2Ex3.ToVector3(): " << v2Ex3v3 << endl;
+    v2Ex3v3 = v2Ex3.ToVector3(5);
+    cout << "v2Ex3.ToVector3(5): " << v2Ex3v3 << endl;
 
     Vector3 a = Vector3(4, 8, 10);
     Vector3 b = Vector3(9, 2, 7);

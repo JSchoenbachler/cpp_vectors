@@ -19,8 +19,7 @@ class Vector2 {
         string ToString();
         float Magnitude();
         Vector2 Normalize();
-        Vector3 ToVector3();
-        Vector3 ToVector3(float z);
+        Vector3 ToVector3(float z = 0);
         // Operator overloads
         Vector2 operator+(Vector2 const &);
         friend void operator+=(Vector2 &, Vector2 const &);
@@ -100,10 +99,10 @@ vector<vector<float>> MatrixProduct(vector<vector<float>>&, vector<vector<float>
 Vector3 RotateAroundX(float, Vector3);
 Vector3 RotateAroundY(float, Vector3);
 Vector3 RotateAroundZ(float, Vector3);
-Vector3 RelativeRightVector(double, double, double);
-Vector3 RelativeUpVector(double, double, double);
-Vector3 RelativeForwardVector(double, double, double);
-Vector3 RelativeLeftVector(double, double, double);
-Vector3 RelativeDownVector(double, double, double);
-Vector3 RelativeBackVector(double, double, double);
+Vector3 RelativeRightVector(double pitch, double yaw = 0, double roll = 0);
+Vector3 RelativeUpVector(double pitch, double yaw = 0, double roll = 0);
+Vector3 RelativeForwardVector(double pitch, double yaw = 0, double roll = 0);
+Vector3 RelativeLeftVector(double pitch, double yaw = 0, double roll = 0);
+Vector3 RelativeDownVector(double pitch, double yaw = 0, double roll = 0);
+Vector3 RelativeBackVector(double pitch, double yaw = 0, double roll = 0);
 double DegreesToRadians(double degrees);
