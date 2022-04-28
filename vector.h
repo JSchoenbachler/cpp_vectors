@@ -15,6 +15,7 @@ class Vector2 {
         // Functions
         std::string ToString();
         float Magnitude();
+        Vector2 Normalize();
         Vector3 ToVector3();
         Vector3 ToVector3(float z);
         // Operator overloads
@@ -56,6 +57,7 @@ class Vector3 {
         // Functions
         std::string ToString();
         float Magnitude();
+        Vector3 Normalize();
         Vector2 ToVector2();
         // Operator overloads
         Vector3 operator+(Vector3 const &);
@@ -83,3 +85,9 @@ class Vector3 {
         static Vector3 down;
         static Vector3 back;
 };
+// Vector 2 product functions.
+float DotProductScalar(Vector2&, Vector2&);
+float DotProductAngle(Vector2&, Vector2&);
+// Vector3 product functions.
+float DotProductScalar(Vector3&, Vector3&);
+float DotProductAngle(Vector3&, Vector3&);

@@ -24,6 +24,14 @@ std::string Vector2::ToString() {
 float Vector2::Magnitude() {
     return pow((x * x) + (y * y), 0.5);
 }
+Vector2 Vector2::Normalize() {
+    float mag = this->Magnitude();
+    if(mag != 0) {
+        return Vector2(x / mag, y / mag);
+    } else {
+        return Vector2(0);
+    }
+}
 Vector3 Vector2::ToVector3(float z) {
     return(Vector3(x, y, z));
 }
@@ -115,6 +123,14 @@ std::string Vector3::ToString() {
 float Vector3::Magnitude() {
     return pow((x * x) + (y * y) + (z * z), 0.5);
 }
+Vector3 Vector3::Normalize() {
+    float mag = this->Magnitude();
+    if(mag != 0) {
+        return Vector3(x / mag, y / mag, z / mag);
+    } else {
+        return Vector3(0);
+    }
+}
 Vector2 Vector3::ToVector2() {
     return(Vector2(x, y));
 }
@@ -188,3 +204,22 @@ Vector3 Vector3::forward = Vector3(0, 0, 1);
 Vector3 Vector3::left = Vector3(-1, 0, 0);
 Vector3 Vector3::down = Vector3(0, -1, 0);
 Vector3 Vector3::back = Vector3(0, 0, -1);
+
+// Vector 2 product functions.
+float DotProductScalar(Vector2& a, Vector2& b) {
+    return ((a.x * b.x) + (a.y * b.y));
+}
+float DotProductAngle(Vector2& a, Vector2& b) {
+    float val = DotProductScalar(a, b);
+    val /= (a.Magnitude() * b.Magnitude());
+    return acos(val);
+}
+// Vector3 product functions.
+float DotProductScalar(Vector3& a, Vector3& b) {
+    return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
+}
+float DotProductAngle(Vector3& a, Vector3& b) {
+    float val = DotProductScalar(a, b);
+    val /= (a.Magnitude() * b.Magnitude());
+    return acos(val);
+}

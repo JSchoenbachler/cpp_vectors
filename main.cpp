@@ -29,5 +29,12 @@ int main() {
     cout << "Vector2::zero " << (Vector2::zero) << endl;
     cout << "Vector2::up " << (Vector2::up) << endl;
 
+    Vector3 a = Vector3(4, 8, 10);
+    Vector3 b = Vector3(9, 2, 7);
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+    cout << "DotProductScalar(a, b): " << DotProductScalar(a, b) << endl;
+    cout << "DotProductAngle(a, b): " << DotProductAngle(a, b) << endl;
+
     return 0;
 }
