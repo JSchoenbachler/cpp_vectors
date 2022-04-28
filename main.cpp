@@ -36,5 +36,12 @@ int main() {
     cout << "DotProductScalar(a, b): " << DotProductScalar(a, b) << endl;
     cout << "DotProductAngle(a, b): " << DotProductAngle(a, b) << endl;
 
+    a = Vector3(2, 3, 4);
+    b = Vector3(5, 6, 7);
+    cout << "a: " << a << endl;
+    cout << "b: " << b << endl;
+    Vector3 c = CrossProduct(a, b);
+    cout << "CrossProduct(a, b): " << c << endl;
+
     return 0;
 }

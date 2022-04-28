@@ -91,3 +91,4 @@ float DotProductAngle(Vector2&, Vector2&);
 // Vector3 product functions.
 float DotProductScalar(Vector3&, Vector3&);
 float DotProductAngle(Vector3&, Vector3&);
+Vector3 CrossProduct(Vector3&, Vector3&);

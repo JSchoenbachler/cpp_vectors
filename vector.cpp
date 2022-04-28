@@ -223,3 +223,9 @@ float DotProductAngle(Vector3& a, Vector3& b) {
     val /= (a.Magnitude() * b.Magnitude());
     return acos(val);
 }
+Vector3 CrossProduct(Vector3& a, Vector3& b) {
+    float cx = (a.y * b.z) - (a.z * b.y);
+    float cy = (a.z * b.x) - (a.x * b.z);
+    float cz = (a.x * b.y) - (a.y * b.x);
+    return Vector3(cx, cy, cz);
+}
