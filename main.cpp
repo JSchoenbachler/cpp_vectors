@@ -1,6 +1,6 @@
 #include <iostream>
 #include <math.h>
-#include "vector.h"
+#include "coord_vector.h"
 
 using namespace std;
 
