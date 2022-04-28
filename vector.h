@@ -100,9 +100,10 @@ vector<vector<float>> MatrixProduct(vector<vector<float>>&, vector<vector<float>
 Vector3 RotateAroundX(float, Vector3);
 Vector3 RotateAroundY(float, Vector3);
 Vector3 RotateAroundZ(float, Vector3);
-Vector3 RelativeRightVector(float, float);
-Vector3 RelativeUpVector(float, float);
-Vector3 RelativeForwardVector(float, float);
-Vector3 RelativeLeftVector(float, float);
-Vector3 RelativeDownVector(float, float);
-Vector3 RelativeBackVector(float, float);
+Vector3 RelativeRightVector(double, double, double);
+Vector3 RelativeUpVector(double, double, double);
+Vector3 RelativeForwardVector(double, double, double);
+Vector3 RelativeLeftVector(double, double, double);
+Vector3 RelativeDownVector(double, double, double);
+Vector3 RelativeBackVector(double, double, double);
+double DegreesToRadians(double degrees);

@@ -44,12 +44,18 @@ int main() {
     Vector3 c = CrossProduct(a, b);
     cout << "CrossProduct(a, b): " << c << endl;
 
-    double pi = 2*acos(0.0);
-    Vector3 z = Vector3(1, 0, 0);
-    cout << "z: " << z << endl;
-    z = RotateAroundZ(pi / 2, z);
-    cout << "z = RotateAroundZ(pi / 2, z);" <<endl;
-    cout << "z: " << z << endl;
+    double pitch = DegreesToRadians(-60);
+    double yaw = DegreesToRadians(30);
+    double roll = DegreesToRadians(0);
+    Vector3 relForward = RelativeForwardVector(pitch, yaw, roll);
+    Vector3 relRight = RelativeRightVector(pitch, yaw, roll);
+    Vector3 relUp = RelativeUpVector(pitch, yaw, roll);
+    cout << "pitch: " << pitch << endl;
+    cout << "yaw: " << pitch << endl;
+    cout << "roll: " << pitch << endl;
+    cout << "relForward: " << relForward << endl;
+    cout << "relRight: " << relRight << endl;
+    cout << "relUp: " << relUp << endl;
 
 
     return 0;

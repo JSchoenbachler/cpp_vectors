@@ -232,90 +232,68 @@ Vector3 CrossProduct(Vector3& a, Vector3& b) {
     return Vector3(cx, cy, cz);
 }
 // Rotation-relative vector functions.
-vector<vector<float>> MatrixProduct(vector<vector<float>>& a, vector<vector<float>>& b) {
-    vector<vector<float>> res;
-    int aCols = a.size();
-    int aRows = a.at(0).size();
-    int bCols = b.size();
-    int bRows = b.at(0).size();
-    res.reserve(bCols);
-    for(int i = 0; i < bCols; i++) {
-        vector<float> tmpVec;
-        tmpVec.reserve(aRows);
-        for(int j = 0; j < aRows; j++) {
-            float tmpSum = 0;
-            for (int k = 0; k < bRows; k++) {
-                tmpSum += (a.at(k).at(j) * b.at(i).at(k));
-            }
-            tmpVec.push_back(tmpSum);
-        }
-        res.push_back(tmpVec);
-    }
-    return res;
-}
 Vector3 RotateAroundX(float theta, Vector3 v3) {
     float cosTheta = cos(theta);
     float sinTheta = sin(theta);
-    vector<vector<float>> RxMat{{1, 0, 0},
-                                {0, cosTheta, -sinTheta},
-                                {0, sinTheta, cosTheta}};
-    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
-    vector<vector<float>> prod = MatrixProduct(RxMat, vecToColumn);
-    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+    float x = v3.x;
+    float y = (v3.y * cosTheta) - (v3.z * sinTheta);
+    float z = (v3.y * sinTheta) + (v3.z * cosTheta);
+    return Vector3(x, y, z);
 }
 Vector3 RotateAroundY(float theta, Vector3 v3) {
     float cosTheta = cos(theta);
     float sinTheta = sin(theta);
-    vector<vector<float>> RyMat{{cosTheta, 0, -sinTheta},
-                                {0, 1, 0},
-                                {sinTheta, 0, cosTheta}};
-    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
-    vector<vector<float>> prod = MatrixProduct(RyMat, vecToColumn);
-    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+    float x = (v3.x * cosTheta) + (v3.z * sinTheta);
+    float y = v3.y;
+    float z = -(v3.x * sinTheta) + (v3.z * cosTheta);
+    return Vector3(x, y, z);
 }
 Vector3 RotateAroundZ(float theta, Vector3 v3) {
     float cosTheta = cos(theta);
     float sinTheta = sin(theta);
-    vector<vector<float>> RzMat{{cosTheta, sinTheta, 0},
-                                {-sinTheta, cosTheta, 0},
-                                {0, 0, 1}};
-    vector<vector<float>> vecToColumn{{v3.x, v3.y, v3.z}};
-    vector<vector<float>> prod = MatrixProduct(RzMat, vecToColumn);
-    return Vector3(prod.at(0).at(0), prod.at(0).at(1), prod.at(0).at(2));
+    float x =  (v3.x * cosTheta) - (v3.y * sinTheta);
+    float y = (v3.x * sinTheta) + (v3.y * cosTheta);
+    float z = v3.z;
+    return Vector3(x, y, z);
 }
-Vector3 RelativeRightVector(float thetaY, float thetaZ) {
+Vector3 RelativeRightVector(double pitch, double yaw = 0, double roll = 0) {
     Vector3 relRight = Vector3(1, 0, 0);
-    relRight = RotateAroundY(thetaY, relRight);
-    relRight = RotateAroundZ(thetaZ, relRight);
-
+    relRight = RotateAroundY(yaw, relRight);
+    relRight = RotateAroundX(pitch, relRight);
+    relRight = RotateAroundZ(roll, relRight);
     return relRight;
 }
-Vector3 RelativeUpVector(float thetaX, float thetaZ) {
+Vector3 RelativeUpVector(double pitch, double yaw = 0, double roll = 0) {
     Vector3 relUp = Vector3(0, 1, 0);
-    relUp = RotateAroundX(thetaX, relUp);
-    relUp = RotateAroundZ(thetaZ, relUp);
-
+    relUp = RotateAroundY(yaw, relUp);
+    relUp = RotateAroundX(pitch, relUp);
+    relUp = RotateAroundZ(roll, relUp);
     return relUp;
 }
-Vector3 RelativeForwardVector(float thetaX, float thetaY) {
-    Vector3 relForward = Vector3(0, 0, 1);
-    relForward = RotateAroundX(thetaX, relForward);
-    relForward = RotateAroundY(thetaY, relForward);
-
-    return relForward;
+Vector3 RelativeForwardVector(double pitch, double yaw = 0, double roll = 0) {
+    Vector3 relFwd = Vector3(0, 0, 1);
+    relFwd = RotateAroundY(yaw, relFwd);
+    relFwd = RotateAroundX(pitch, relFwd);
+    relFwd = RotateAroundZ(roll, relFwd);
+    return relFwd;
 }
-Vector3 RelativeLeftVector(float thetaY, float thetaZ) {
-    Vector3 relLeft = RelativeRightVector(thetaY, thetaZ);
+Vector3 RelativeLeftVector(double pitch, double yaw = 0, double roll = 0) {
+    Vector3 relLeft = RelativeRightVector(pitch, yaw, roll);
     relLeft = -relLeft;
     return relLeft;
 }
-Vector3 RelativeDownVector(float thetaX, float thetaZ) {
-    Vector3 relDown = RelativeUpVector(thetaX, thetaZ);
+Vector3 RelativeDownVector(double pitch, double yaw = 0, double roll = 0) {
+    Vector3 relDown = RelativeUpVector(pitch, yaw, roll);
     relDown = -relDown;
     return relDown;
 }
-Vector3 RelativeBackVector(float thetaX, float thetaY) {
-    Vector3 relBack = RelativeForwardVector(thetaX, thetaY);
+Vector3 RelativeBackVector(double pitch, double yaw = 0, double roll = 0) {
+    Vector3 relBack = RelativeForwardVector(pitch, yaw, roll);
     relBack = -relBack;
     return relBack;
+}
+
+double PI = acos(0.0);
+double DegreesToRadians(double degrees) {
+    return degrees * (PI / 180); 
 }
