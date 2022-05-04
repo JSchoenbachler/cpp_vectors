@@ -9,13 +9,19 @@ Vector2 definitions.
 */
 
 // Vector2 constructors.
-Vector2::Vector2(float x, float y) {
-    this->x = x;
-    this->y = y;
+Vector2::Vector2(float x, float y)
+:
+x(x),
+y(y)
+{
+
 }
-Vector2::Vector2(float xy) {
-    this->x = xy;
-    this->y = xy;
+Vector2::Vector2(float xy)
+:
+x(xy),
+y(xy)
+{
+
 }
 
 // Vector2 functions.
@@ -94,25 +100,33 @@ Vector3 definitions.
 */
 
 // Vector3 constructors.
-Vector3::Vector3(float x, float y, float z) {
-    this->x = x;
-    this->y = y;
-    this->z = z;
+Vector3::Vector3(float x, float y, float z)
+:
+x(x),
+y(y),
+z(z)
+{
 }
-Vector3::Vector3(float xyz) {
-    this->x = xyz;
-    this->y = xyz;
-    this->z = xyz;
+Vector3::Vector3(float xyz)
+:
+x(xyz),
+y(xyz),
+z(xyz)
+{
 }
-Vector3::Vector3(Vector2& v2) {
-    this->x = v2.x;
-    this->y = v2.y;
-    this->z = 0;
+Vector3::Vector3(Vector2& v2)
+:
+x(v2.x),
+y(v2.y),
+z(0)
+{
 }
-Vector3::Vector3(Vector2& v2, float z) {
-    this->x = v2.x;
-    this->y = v2.y;
-    this->z = z;
+Vector3::Vector3(Vector2& v2, float z)
+:
+x(v2.x),
+y(v2.y),
+z(z)
+{
 }
 // Vector3 functions.
 std::string Vector3::ToString() {
