@@ -13,11 +13,12 @@ class Vector2 {
         // Constructors
         Vector2(float x, float y);
         Vector2(float xy);
+        Vector2(const Vector2& v2);
         // Functions
-        std::string ToString();
-        float Magnitude();
-        Vector2 Normalize();
-        Vector3 ToVector3(float z = 0);
+        std::string ToString() const;
+        float Magnitude() const;
+        Vector2 Normalize() const;
+        Vector3 ToVector3(float z = 0) const;
         // Operator overloads
         Vector2 operator+(Vector2 const &);
         friend void operator+=(Vector2 &, Vector2 const &);
@@ -32,15 +33,17 @@ class Vector2 {
         friend void operator/=(Vector2 &, Vector2 const &);
         friend bool operator==(Vector2 const &, Vector2 const &);
         friend bool operator!=(Vector2 const &, Vector2 const &);
+        Vector2& operator=(const Vector2&);
         friend std::ostream& operator<<(std::ostream&, Vector2&);
+        friend std::ostream& operator<<(std::ostream&, const Vector2&);
         friend std::istream& operator>>(std::istream&, Vector2&);
         // Static instances
-        static Vector2 zero;
-        static Vector2 one;
-        static Vector2 right;
-        static Vector2 up;
-        static Vector2 left;
-        static Vector2 down;
+        static const Vector2 zero;
+        static const Vector2 one;
+        static const Vector2 right;
+        static const Vector2 up;
+        static const Vector2 left;
+        static const Vector2 down;
 };
 
 class Vector3 {
@@ -54,11 +57,12 @@ class Vector3 {
         Vector3(float xyz);
         Vector3(Vector2& v2);
         Vector3(Vector2& v2, float z);
+        Vector3(const Vector3& v3);
         // Functions
-        std::string ToString();
-        float Magnitude();
-        Vector3 Normalize();
-        Vector2 ToVector2();
+        std::string ToString() const;
+        float Magnitude() const;
+        Vector3 Normalize() const;
+        Vector2 ToVector2() const;
         // Operator overloads
         Vector3 operator+(Vector3 const &);
         friend void operator+=(Vector3 &, Vector3 const &);
@@ -73,17 +77,19 @@ class Vector3 {
         friend void operator/=(Vector3 &, Vector3 const &);
         friend bool operator==(Vector3 const &, Vector3 const &);
         friend bool operator!=(Vector3 const &, Vector3 const &);
+        Vector3& operator=(const Vector3&);
         friend std::ostream& operator<<(std::ostream&, Vector3&);
+        friend std::ostream& operator<<(std::ostream&, const Vector3&);
         friend std::istream& operator>>(std::istream&, Vector3&);
         // Static instances
-        static Vector3 zero;
-        static Vector3 one;
-        static Vector3 right;
-        static Vector3 up;
-        static Vector3 forward;
-        static Vector3 left;
-        static Vector3 down;
-        static Vector3 back;
+        static const Vector3 zero;
+        static const Vector3 one;
+        static const Vector3 right;
+        static const Vector3 up;
+        static const Vector3 forward;
+        static const Vector3 left;
+        static const Vector3 down;
+        static const Vector3 back;
 };
 // Vector 2 product functions.
 float DotProductScalar(Vector2&, Vector2&);

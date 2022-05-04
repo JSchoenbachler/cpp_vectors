@@ -14,25 +14,29 @@ Vector2::Vector2(float x, float y)
 x(x),
 y(y)
 {
-
 }
 Vector2::Vector2(float xy)
 :
 x(xy),
 y(xy)
 {
-
+}
+Vector2::Vector2(const Vector2& v2)
+:
+x(v2.x),
+y(v2.y)
+{
 }
 
 // Vector2 functions.
-std::string Vector2::ToString() {
+std::string Vector2::ToString() const {
     std::string s = "Vector2(" + std::to_string(x) + ", " + std::to_string(y) + ")";
     return s; 
 }
-float Vector2::Magnitude() {
+float Vector2::Magnitude() const {
     return pow((x * x) + (y * y), 0.5);
 }
-Vector2 Vector2::Normalize() {
+Vector2 Vector2::Normalize() const {
     float mag = this->Magnitude();
     if(mag != 0) {
         return Vector2(x / mag, y / mag);
@@ -40,7 +44,7 @@ Vector2 Vector2::Normalize() {
         return Vector2(0);
     }
 }
-Vector3 Vector2::ToVector3(float z) {
+Vector3 Vector2::ToVector3(float z) const {
     return(Vector3(x, y, z));
 }
 
@@ -86,7 +90,16 @@ bool operator==(Vector2 const &lhs, Vector2 const &rhs) {
 bool operator!=(Vector2 const &lhs, Vector2 const &rhs) {
     return (lhs.x != rhs.x | lhs.y != rhs.y);
 }
+Vector2& Vector2::operator=(const Vector2& v2) {
+    this->x = v2.x;
+    this->y = v2.y;
+    return *this;
+}
 std::ostream& operator<<(std::ostream& os, Vector2& v2) {
+    os << v2.ToString();
+    return os;
+}
+std::ostream& operator<<(std::ostream& os, const Vector2& v2) {
     os << v2.ToString();
     return os;
 }
@@ -128,15 +141,22 @@ y(v2.y),
 z(z)
 {
 }
+Vector3::Vector3(const Vector3& v3)
+:
+x(v3.x),
+y(v3.y),
+z(v3.z)
+{
+}
 // Vector3 functions.
-std::string Vector3::ToString() {
+std::string Vector3::ToString() const {
     std::string s = "Vector3(" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + ")";
     return s; 
 }
-float Vector3::Magnitude() {
+float Vector3::Magnitude() const {
     return pow((x * x) + (y * y) + (z * z), 0.5);
 }
-Vector3 Vector3::Normalize() {
+Vector3 Vector3::Normalize() const {
     float mag = this->Magnitude();
     if(mag != 0) {
         return Vector3(x / mag, y / mag, z / mag);
@@ -144,7 +164,7 @@ Vector3 Vector3::Normalize() {
         return Vector3(0);
     }
 }
-Vector2 Vector3::ToVector2() {
+Vector2 Vector3::ToVector2() const {
     return(Vector2(x, y));
 }
 //Vector3 operator overloads.
@@ -191,7 +211,17 @@ bool operator==(Vector3 const &lhs, Vector3 const &rhs) {
 bool operator!=(Vector3 const &lhs, Vector3 const &rhs) {
     return (lhs.x != rhs.x | lhs.y != rhs.y | lhs.z != rhs.z);
 }
+Vector3& Vector3::operator=(const Vector3& v3) {
+    this->x = v3.x;
+    this->y = v3.y;
+    this->z = v3.z;
+    return *this;
+}
 std::ostream& operator<<(std::ostream& os, Vector3& v3) {
+    os << v3.ToString();
+    return os;
+}
+std::ostream& operator<<(std::ostream& os, const Vector3& v3) {
     os << v3.ToString();
     return os;
 }
@@ -202,21 +232,21 @@ std::istream& operator>>(std::istream& is, Vector3& v3) {
 
 // Vector2 and Vector3 static instances.
 // Operates on left-hand y-up coordinate system.
-Vector2 Vector2::zero = Vector2(0, 0);
-Vector2 Vector2::one = Vector2(1, 1);
-Vector2 Vector2::right = Vector2(1, 0);
-Vector2 Vector2::up = Vector2(0, 1);
-Vector2 Vector2::left = Vector2(-1, 0);
-Vector2 Vector2::down = Vector2(0, -1);
+Vector2 const Vector2::zero = Vector2(0, 0);
+Vector2 const Vector2::one = Vector2(1, 1);
+Vector2 const Vector2::right = Vector2(1, 0);
+Vector2 const Vector2::up = Vector2(0, 1);
+Vector2 const Vector2::left = Vector2(-1, 0);
+Vector2 const Vector2::down = Vector2(0, -1);
 
-Vector3 Vector3::zero = Vector3(0, 0, 0);
-Vector3 Vector3::one = Vector3(1, 1, 1);
-Vector3 Vector3::right = Vector3(1, 0, 0);
-Vector3 Vector3::up = Vector3(0, 1, 0);
-Vector3 Vector3::forward = Vector3(0, 0, 1);
-Vector3 Vector3::left = Vector3(-1, 0, 0);
-Vector3 Vector3::down = Vector3(0, -1, 0);
-Vector3 Vector3::back = Vector3(0, 0, -1);
+Vector3 const Vector3::zero = Vector3(0, 0, 0);
+Vector3 const Vector3::one = Vector3(1, 1, 1);
+Vector3 const Vector3::right = Vector3(1, 0, 0);
+Vector3 const Vector3::up = Vector3(0, 1, 0);
+Vector3 const Vector3::forward = Vector3(0, 0, 1);
+Vector3 const Vector3::left = Vector3(-1, 0, 0);
+Vector3 const Vector3::down = Vector3(0, -1, 0);
+Vector3 const Vector3::back = Vector3(0, 0, -1);
 
 // Vector 2 product functions.
 float DotProductScalar(Vector2& a, Vector2& b) {
